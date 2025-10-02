@@ -10,7 +10,7 @@ public class InteractionController : BaseController<InteractionController>
 
     private Interactable lastObject = null;
     private Interactable interactableObject = null;
-
+    private RaycastHit lastHit; // sauvegarde du hit actuel
 
     private void OnEnable()
     {
@@ -28,20 +28,23 @@ public class InteractionController : BaseController<InteractionController>
     {
         if (button == 0) // clic gauche
         {
-            // if (interactableObject != null)
-            // {
-            //     switch (switch_on(interactableObject.customName))
-            //     {
-            //         case "Cube":
-            //             interactableObject.pose = new Vector3(0, 2, 0);
-            //             break;
-            //         default:
-            //             Debug.Log("Interaction avec : " + interactableObject.customName);
-            //             break;
-            //     }
-            // }
+            if (interactableObject != null)
+            {
+                switch (interactableObject.customName)
+                {
+                    case "Cube":
+                        // utilise le transform directement via le hit
+                        lastHit.collider.transform.position = new Vector3(0, 2, 0);
+                        break;
+
+                    default:
+                        Debug.Log("Interaction avec : " + interactableObject.customName);
+                        break;
+                }
+            }
         }
     }
+
     void Update()
     {
         CheckLook();
@@ -55,29 +58,30 @@ public class InteractionController : BaseController<InteractionController>
         RaycastHit hit;
         bool isLooking = false;
 
+        interactableObject = null; // reset par défaut
+
         if (Physics.Raycast(ray, out hit, rayDistance))
         {
             if (hit.collider.CompareTag("Interactable"))
             {
                 interactableObject = hit.collider.GetComponent<Interactable>();
                 if (interactableObject != null)
+                {
                     isLooking = true;
+                    lastHit = hit; // sauvegarde du hit actuel
+                }
             }
         }
 
         if (!isLooking)
+        {
             lastObject = null;
-
-
-        if (isLooking && interactableObject != lastObject)
-        {
-            OnLookAtInteractable?.Invoke(isLooking, interactableObject);
-            lastObject = interactableObject;
-        }
-
-        else if (!isLooking)
-        {
             OnLookAtInteractable?.Invoke(false, null);
+        }
+        else if (interactableObject != lastObject)
+        {
+            OnLookAtInteractable?.Invoke(true, interactableObject);
+            lastObject = interactableObject;
         }
     }
 }
