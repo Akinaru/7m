@@ -1,48 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;  
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-     public Image cursorImage;
+    public Image cursorImage;
     public Sprite cursorSprite;
     public Sprite activeCursorSprite;
 
-    private bool isActive = false;
-    public Camera playerCamera;      
-    public float rayDistance = 10f;  
-
-    void Update()
+    private void OnEnable()
     {
-        CheckObjectInCenter();
+        if (InteractionController.Instance != null)
+            InteractionController.Instance.OnLookAtInteractable += UpdateCursor;
     }
 
-    void CheckObjectInCenter()
+    private void OnDisable()
     {
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, rayDistance))
-        {
-            if (hit.collider.CompareTag("Interactable"))
-            {
-                if (!isActive) ToggleCursor(true);
-            }
-            else
-            {
-                if (isActive) ToggleCursor(false);
-            }
-        }
-        else
-        {
-            if (isActive) ToggleCursor(false);
-        }
+        if (InteractionController.Instance != null)
+            InteractionController.Instance.OnLookAtInteractable -= UpdateCursor;
     }
 
-    void ToggleCursor(bool active)
+    private void UpdateCursor(bool isActive)
     {
-        isActive = active;
+        if (cursorImage == null) return;
         cursorImage.sprite = isActive ? activeCursorSprite : cursorSprite;
     }
 }
