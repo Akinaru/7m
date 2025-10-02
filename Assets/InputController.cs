@@ -12,12 +12,13 @@ public class InputController : BaseController<InputController>
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        GameController.Instance.OnGameStateChanged += GameStateChanged;
     }
 
     void Update()
     {
+        if (GameController.Instance.State != GameController.GameState.Running)
+            return;
         // Déplacement (ZQSD / flèches)
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
@@ -35,6 +36,20 @@ public class InputController : BaseController<InputController>
         if (Input.GetMouseButtonDown(0))
         {
             OnClick?.Invoke(0);
+        }
+    }
+
+    public void GameStateChanged(GameController.GameState state)
+    {
+        if (state == GameController.GameState.Running)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

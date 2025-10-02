@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIController : MonoBehaviour
+public class UIController : BaseController<UIController>
 {
     public Image cursorImage;
     public Sprite cursorSprite;
@@ -12,11 +12,18 @@ public class UIController : MonoBehaviour
     public TMP_Text interactableName;
     public TMP_Text interactableLabelAction;
 
+    public GameObject TitleMenu;
+
+    public delegate void UIEvent();
+    public event UIEvent OnButtonStartClicked;
+
+    // Methodes de base du controller
+
     void Start()
     {
         SetCursorNormal();
         SetPanelActive(false);
-    }   
+    }
 
     private void OnEnable()
     {
@@ -29,6 +36,8 @@ public class UIController : MonoBehaviour
         if (InteractionController.Instance != null)
             InteractionController.Instance.OnLookAtInteractable -= OnInteractableLookedAt;
     }
+
+    // Interactions custom
 
     private void OnInteractableLookedAt(bool isActive, Interactable interactableObject)
     {
@@ -66,5 +75,17 @@ public class UIController : MonoBehaviour
     {
         if (interactablePanel != null)
             interactablePanel.SetActive(isActive);
+    }
+
+    public void SetTitleMenuActive(bool show)
+    {
+        if (TitleMenu != null)
+            TitleMenu.SetActive(show);
+    }
+
+    public void ButtonStartClicked()
+    {
+        OnButtonStartClicked?.Invoke();
+        SetTitleMenuActive(false);
     }
 }

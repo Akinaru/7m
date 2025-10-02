@@ -32,6 +32,8 @@ public class DeplacementController : BaseController<DeplacementController>
 
     void FixedUpdate()
     {
+        if (GameController.Instance.State != GameController.GameState.Running)
+            return;
         Vector3 dir = playerRoot.right * moveInput.x + playerRoot.forward * moveInput.y;
         if (dir.sqrMagnitude > 1f) dir.Normalize();
 
