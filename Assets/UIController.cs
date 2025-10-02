@@ -14,34 +14,57 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        if (cursorImage != null)
-            cursorImage.sprite = cursorSprite;
-
-        if (interactablePanel != null)
-            interactablePanel.SetActive(false);
+        SetCursorNormal();
+        SetPanelActive(false);
     }   
+
     private void OnEnable()
     {
         if (InteractionController.Instance != null)
-            InteractionController.Instance.OnLookAtInteractable += UpdateCursor;
+            InteractionController.Instance.OnLookAtInteractable += OnInteractableLookedAt;
     }
 
     private void OnDisable()
     {
         if (InteractionController.Instance != null)
-            InteractionController.Instance.OnLookAtInteractable -= UpdateCursor;
+            InteractionController.Instance.OnLookAtInteractable -= OnInteractableLookedAt;
     }
 
-    private void UpdateCursor(bool isActive, Interactable interactableObject)
-    {   
+    private void OnInteractableLookedAt(bool isActive, Interactable interactableObject)
+    {
+        UpdateCursor(isActive);
+        UpdatePanel(isActive, interactableObject);
+    }
+
+    private void UpdateCursor(bool isActive)
+    {
         if (cursorImage != null)
             cursorImage.sprite = isActive ? activeCursorSprite : cursorSprite;
+    }
 
+    private void SetCursorNormal()
+    {
+        if (cursorImage != null)
+            cursorImage.sprite = cursorSprite;
+    }
+
+    private void UpdatePanel(bool isActive, Interactable interactableObject)
+    {
+        SetPanelActive(isActive);
+
+        if (interactableObject != null)
+        {
+            if (interactableName != null)
+                interactableName.text = interactableObject.customName;
+
+            if (interactableLabelAction != null)
+                interactableLabelAction.text = interactableObject.labelAction;
+        }
+    }
+
+    private void SetPanelActive(bool isActive)
+    {
         if (interactablePanel != null)
             interactablePanel.SetActive(isActive);
-
-        if (interactableName != null && interactableObject != null)
-            interactableName.text = interactableObject.customName;
-            interactableLabelAction.text = interactableObject.labelAction;
     }
 }
