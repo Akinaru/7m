@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class InteractionController : BaseController<InteractionController>
 {
-    public Camera playerCamera;
     public float rayDistance = 10f;
 
     public event Action<bool, Interactable> OnLookAtInteractable;
@@ -52,9 +51,9 @@ public class InteractionController : BaseController<InteractionController>
 
     void CheckLook()
     {
-        if (playerCamera == null) return;
+        if (PlayerController.Instance.playerCamera == null) return;
 
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        Ray ray = PlayerController.Instance.playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
         bool isLooking = false;
 
