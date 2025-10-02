@@ -19,8 +19,13 @@ public class UIController : MonoBehaviour
             InteractionController.Instance.OnLookAtInteractable -= UpdateCursor;
     }
 
-    private void UpdateCursor(bool isActive)
+    private void UpdateCursor(bool isActive, Interactable interactableObject)
     {
+        if (interactableObject != null)
+            {
+                Debug.Log("Looking at: " + interactableObject.customName);
+            }
+
         if (cursorImage == null) return;
         cursorImage.sprite = isActive ? activeCursorSprite : cursorSprite;
     }
