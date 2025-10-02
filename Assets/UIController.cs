@@ -33,8 +33,6 @@ public class UIController : BaseController<UIController>
 
     private void OnDisable()
     {
-        if (InteractionController.Instance != null)
-            InteractionController.Instance.OnLookAtInteractable -= OnInteractableLookedAt;
     }
 
     // Interactions custom

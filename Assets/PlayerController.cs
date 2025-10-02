@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerController : BaseController<PlayerController>
 {
     public Transform playerRoot;    // Capsule avec Rigidbody
+    public Camera playerCamera;
     public float mouseSensitivity = 2f;
     public float minPitch = -89f;
     public float maxPitch = 89f;
@@ -16,6 +17,8 @@ public class PlayerController : BaseController<PlayerController>
     void Awake()
     {
         if (!playerRoot) playerRoot = transform;
+        if (!playerCamera) playerCamera = GetComponentInChildren<Camera>(true);
+        Debug.Log($"{playerCamera}");
 
         rb = playerRoot.GetComponent<Rigidbody>();
         rb.useGravity = true;
