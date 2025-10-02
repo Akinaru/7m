@@ -28,15 +28,25 @@ public class InteractionController : BaseController<InteractionController>
         {
             if (hit.collider.CompareTag("Interactable"))
             {
-                isLooking = true;
                 interactableObject = hit.collider.GetComponent<Interactable>();
+                if (interactableObject != null)
+                    isLooking = true;
             }
         }
-        
-        if (interactableObject != lastObject)
+
+        if (!isLooking)
+            lastObject = null;
+
+
+        if (isLooking && interactableObject != lastObject)
         {
             OnLookAtInteractable?.Invoke(isLooking, interactableObject);
             lastObject = interactableObject;
+        }
+
+        else if (!isLooking)
+        {
+            OnLookAtInteractable?.Invoke(false, null);
         }
     }
 }

@@ -33,7 +33,7 @@ public class UIController : MonoBehaviour
     }
 
     private void UpdateCursor(bool isActive, Interactable interactableObject)
-    {
+    {   
         if (cursorImage != null)
             cursorImage.sprite = isActive ? activeCursorSprite : cursorSprite;
 
