@@ -18,7 +18,6 @@ public class PlayerController : BaseController<PlayerController>
     {
         if (!playerRoot) playerRoot = transform;
         if (!playerCamera) playerCamera = GetComponentInChildren<Camera>(true);
-        Debug.Log($"{playerCamera}");
 
         rb = playerRoot.GetComponent<Rigidbody>();
         rb.useGravity = true;
