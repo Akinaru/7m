@@ -8,16 +8,17 @@ public class UIController : MonoBehaviour
     public Sprite cursorSprite;
     public Sprite activeCursorSprite;
 
-    public GameObject infoPanel; // panel UI à afficher
-    public TMP_Text infoText;
+    public GameObject interactablePanel;
+    public TMP_Text interactableName;
+    public TMP_Text interactableLabelAction;
 
     void Start()
     {
         if (cursorImage != null)
             cursorImage.sprite = cursorSprite;
 
-        if (infoPanel != null)
-            infoPanel.SetActive(false);
+        if (interactablePanel != null)
+            interactablePanel.SetActive(false);
     }   
     private void OnEnable()
     {
@@ -36,10 +37,11 @@ public class UIController : MonoBehaviour
         if (cursorImage != null)
             cursorImage.sprite = isActive ? activeCursorSprite : cursorSprite;
 
-        if (infoPanel != null)
-            infoPanel.SetActive(isActive);
+        if (interactablePanel != null)
+            interactablePanel.SetActive(isActive);
 
-        if (infoText != null && interactableObject != null)
-            infoText.text = interactableObject.customName;
+        if (interactableName != null && interactableObject != null)
+            interactableName.text = interactableObject.customName;
+            interactableLabelAction.text = interactableObject.labelAction;
     }
 }

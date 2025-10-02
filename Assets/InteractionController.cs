@@ -8,8 +8,7 @@ public class InteractionController : BaseController<InteractionController>
 
     public event Action<bool, Interactable> OnLookAtInteractable;
 
-    private bool lastState = false;
-    private Interactable lastObject = null; // objet précédent
+    private Interactable lastObject = null;
 
     void Update()
     {
@@ -22,8 +21,8 @@ public class InteractionController : BaseController<InteractionController>
 
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
-        bool isLooking = false;
         Interactable interactableObject = null;
+        bool isLooking = false;
 
         if (Physics.Raycast(ray, out hit, rayDistance))
         {
@@ -33,12 +32,10 @@ public class InteractionController : BaseController<InteractionController>
                 interactableObject = hit.collider.GetComponent<Interactable>();
             }
         }
-
-        // ne déclenche l’event que si l’état change ou si l’objet change
-        if (isLooking != lastState || interactableObject != lastObject)
+        
+        if (interactableObject != lastObject)
         {
             OnLookAtInteractable?.Invoke(isLooking, interactableObject);
-            lastState = isLooking;
             lastObject = interactableObject;
         }
     }
