@@ -1337,7 +1337,7 @@ LightingSettings:
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
   serializedVersion: 6
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 0
   m_EnableRealtimeLightmaps: 0
   m_RealtimeEnvironmentLighting: 1
@@ -8321,9 +8321,9 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.46226418, g: 0.2551175, b: 0.2551175, a: 1}
-  m_Intensity: 1.21
-  m_Range: 10
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 0.57
+  m_Range: 19.46
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -23342,6 +23342,7 @@ MonoBehaviour:
   interactableName: {fileID: 2099607195}
   interactableLabelAction: {fileID: 1349801019}
   TitleMenu: {fileID: 2013194802}
+  PauseMenu: {fileID: 0}
 --- !u!4 &1951718073
 Transform:
   m_ObjectHideFlags: 0
