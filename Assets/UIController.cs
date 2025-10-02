@@ -1,3 +1,4 @@
+// UIController.cs
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -14,28 +15,35 @@ public class UIController : BaseController<UIController>
 
     public GameObject TitleMenu;
 
+    public GameObject PauseMenu;
+
     public delegate void UIEvent();
     public event UIEvent OnButtonStartClicked;
-
-    // Methodes de base du controller
 
     void Start()
     {
         SetCursorNormal();
         SetPanelActive(false);
+        SetPauseMenuActive(false);
     }
 
     private void OnEnable()
     {
         if (InteractionController.Instance != null)
             InteractionController.Instance.OnLookAtInteractable += OnInteractableLookedAt;
+
+        if (GameController.Instance != null)
+            GameController.Instance.OnPauseStateChanged += HandlePauseStateChanged;
     }
 
     private void OnDisable()
     {
-    }
+        if (InteractionController.Instance != null)
+            InteractionController.Instance.OnLookAtInteractable -= OnInteractableLookedAt;
 
-    // Interactions custom
+        if (GameController.Instance != null)
+            GameController.Instance.OnPauseStateChanged -= HandlePauseStateChanged;
+    }
 
     private void OnInteractableLookedAt(bool isActive, Interactable interactableObject)
     {
@@ -81,9 +89,26 @@ public class UIController : BaseController<UIController>
             TitleMenu.SetActive(show);
     }
 
+    public void SetPauseMenuActive(bool show)
+    {
+        if (PauseMenu != null)
+            PauseMenu.SetActive(show);
+    }
+
+    private void HandlePauseStateChanged(bool isPaused)
+    {
+        SetPauseMenuActive(isPaused);
+    }
+
     public void ButtonStartClicked()
     {
         OnButtonStartClicked?.Invoke();
         SetTitleMenuActive(false);
+    }
+
+    public void ButtonResumeClicked()
+    {
+        if (GameController.Instance != null)
+            GameController.Instance.PauseGame();
     }
 }
