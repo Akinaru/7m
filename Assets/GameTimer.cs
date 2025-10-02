@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameTimer
 {
     public bool IsRunning { get; private set; }
+    public bool IsPaused { get; private set; }
+
     public float DurationSeconds { get; private set; }
     public float ElapsedSeconds { get; private set; }
     public float RemainingSeconds => Mathf.Max(0f, DurationSeconds - ElapsedSeconds);
@@ -24,6 +26,7 @@ public class GameTimer
     public void Start()
     {
         IsRunning = true;
+        IsPaused = false;
         ElapsedSeconds = 0f;
         lastWhole = -1;
     }
@@ -32,13 +35,25 @@ public class GameTimer
     {
         if (!IsRunning) return;
         IsRunning = false;
+        IsPaused = false;
     }
 
-    // Appelé une fois par frame depuis GameController
-    // Retourne true tant que le timer continue, false quand terminé.
+    public void Pause()
+    {
+        if (!IsRunning || IsPaused) return;
+        IsPaused = true;
+    }
+
+    public void Resume()
+    {
+        if (!IsRunning || !IsPaused) return;
+        IsPaused = false;
+    }
+
     public bool Update()
     {
         if (!IsRunning) return false;
+        if (IsPaused) return true;
 
         float dt = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
         ElapsedSeconds += dt;
@@ -54,6 +69,7 @@ public class GameTimer
         if (ElapsedSeconds >= DurationSeconds)
         {
             IsRunning = false;
+            IsPaused = false;
             OnFinished?.Invoke();
             return false;
         }

@@ -10,7 +10,9 @@ public class GameController : BaseController<GameController>
     public delegate void GameEvent(GameState state);
     public event GameEvent OnGameStateChanged;
 
-    public enum GameState { Idle, Running, Ended }
+    public event System.Action<bool> OnPauseStateChanged;
+
+    public enum GameState { Idle, Running, Paused, Ended }
     public GameState State { get; private set; } = GameState.Idle;
 
     GameTimer currentTimer;
@@ -21,12 +23,18 @@ public class GameController : BaseController<GameController>
     {
         if (UIController.Instance != null)
             UIController.Instance.OnButtonStartClicked += StartGame;
+
+        if (InputController.Instance != null)
+            InputController.Instance.OnPauseToggle += TogglePause;
     }
 
     void OnDisable()
     {
         if (UIController.Instance != null)
             UIController.Instance.OnButtonStartClicked -= StartGame;
+
+        if (InputController.Instance != null)
+            InputController.Instance.OnPauseToggle -= TogglePause;
 
         DestroyCurrentTimer();
     }
@@ -57,15 +65,19 @@ public class GameController : BaseController<GameController>
 
     public void EndGame()
     {
-        if (State != GameState.Running) return;
+        if (State != GameState.Running && State != GameState.Paused) return;
 
         ChangeState(GameState.Ended);
         UIController.Instance.SetTitleMenuActive(false);
+        OnPauseStateChanged?.Invoke(false);
+        Time.timeScale = 1f;
     }
 
     public void ResetGame()
     {
         ChangeState(GameState.Idle);
+        OnPauseStateChanged?.Invoke(false);
+        Time.timeScale = 1f;
         DestroyCurrentTimer();
     }
 
@@ -75,15 +87,48 @@ public class GameController : BaseController<GameController>
         StartGame();
     }
 
+    void TogglePause()
+    {
+        if (State == GameState.Running || State == GameState.Paused)
+        {
+            PauseGame();
+        }
+    }
+
+    public void PauseGame()
+    {
+        if (State != GameState.Running)
+        {
+            ChangeState(GameState.Running);
+
+            if (currentTimer != null)
+                currentTimer.Resume();
+
+            Time.timeScale = 1f;
+            OnPauseStateChanged?.Invoke(false);
+        }
+        else
+        {
+            ChangeState(GameState.Paused);
+
+            if (currentTimer != null)
+                currentTimer.Pause();
+
+            Time.timeScale = 0f;
+            OnPauseStateChanged?.Invoke(true);
+        }
+    }
+
+    //Methode qui s'execute quand le timer arrive a 0
     void HandleTimerFinished()
     {
         EndGame();
         StartCoroutine(RestartNextFrameRealtime());
     }
 
+    //Methode qui s'execute toutes les secondes pendant la phase de jeu
     void HandleTimerTick(int whole, float elapsed, float remaining)
     {
-        // Place ta logique de tick ici si besoin
     }
 
     IEnumerator TimerLoop()
@@ -106,6 +151,7 @@ public class GameController : BaseController<GameController>
         RestartGame();
     }
 
+    // Nettoie le timer courant
     void DestroyCurrentTimer()
     {
         if (timerLoopCo != null)
