@@ -5,20 +5,44 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public Image cursorImage;
+     public Image cursorImage;
     public Sprite cursorSprite;
     public Sprite activeCursorSprite;
 
     private bool isActive = false;
+    public Camera playerCamera;      
+    public float rayDistance = 10f;  
 
-    void Start()
+    void Update()
     {
-        // InvokeRepeating(nameof(ToggleCursor), 0f, 3f);
+        CheckObjectInCenter();
     }
 
-    public void ToggleCursor()
+    void CheckObjectInCenter()
     {
-        isActive = !isActive;
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, rayDistance))
+        {
+            if (hit.collider.CompareTag("Interactable"))
+            {
+                if (!isActive) ToggleCursor(true);
+            }
+            else
+            {
+                if (isActive) ToggleCursor(false);
+            }
+        }
+        else
+        {
+            if (isActive) ToggleCursor(false);
+        }
+    }
+
+    void ToggleCursor(bool active)
+    {
+        isActive = active;
         cursorImage.sprite = isActive ? activeCursorSprite : cursorSprite;
     }
 }
