@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6836473790595737913
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 69585149260681971, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_Name
+      value: Levier1 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 18.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399180278847826546, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303564023324723031, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: preset
+      value: 
+      objectReference: {fileID: 11400000, guid: eabe0ad0bbd9f4b7cbc33f4116403518, type: 2}
+    - target: {fileID: 7303564023324723031, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303564023324723031, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleLevier
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303564023324723031, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ActionController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303564023324723031, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 26259ba1c960d4cd0a481ac97890d00a, type: 3}
