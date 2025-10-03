@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : BaseController<GameController>
 {
     [Header("Durée de partie")]
-    public float gameDurationSeconds = 7f * 60f; // 7 minutes
+    public float gameDurationSeconds = 7f * 60f;
 
     [Header("Vitesse du joueur")]
     public float moveSpeed = 5f;
@@ -20,16 +20,14 @@ public class GameController : BaseController<GameController>
     public static readonly Vector3 START_POSITION = new Vector3(0f, 1f, 0f);
 
     [Header("Perte: séquence d'endormissement")]
-    public float loseFadeOut = 1.0f;     // durée du fade vers noir
-    public float loseBlackHold = 4f;   // temps à rester en noir
-    public float loseFadeIn = 0.8f;      // durée du fade retour
+    public float loseFadeOut = 1.0f;
+    public float loseBlackHold = 4f;
+    public float loseFadeIn = 0.8f;
     public bool autoRestartAfterLose = true;
 
-    // Etats leviers
     public bool FirstLevierActivated = false;
     public bool SecondLevierActivated = false;
 
-    // Events
     public delegate void GameEvent(GameState state);
     public event GameEvent OnGameStateChanged;
     public event System.Action<bool> OnPauseStateChanged;
@@ -38,7 +36,6 @@ public class GameController : BaseController<GameController>
     public event GameSettingsEvent OnMoveSpeedChanged;
     public event GameSettingsEvent OnMouseSensitivityChanged;
 
-    // Notifie les changements d'état de levier: key ("levier1"/"levier2"), value (true/false)
     public event System.Action<string, bool> OnLeverStateChanged;
 
     public enum GameState { Idle, Running, Paused, Ended, Win }
@@ -53,6 +50,7 @@ public class GameController : BaseController<GameController>
         if (UIController.Instance != null)
         {
             UIController.Instance.OnButtonStartClicked += StartGame;
+            UIController.Instance.OnButtonEndClicked += ReturnToTitle;
             UIController.Instance.OnSpeedSliderValueChanged += OnSettingsMoveSpeedChanged;
             UIController.Instance.OnMouseSensitivitySliderValueChanged += OnSettingsMouseSensitivityChanged;
         }
@@ -64,7 +62,12 @@ public class GameController : BaseController<GameController>
     void OnDisable()
     {
         if (UIController.Instance != null)
+        {
             UIController.Instance.OnButtonStartClicked -= StartGame;
+            UIController.Instance.OnButtonEndClicked -= ReturnToTitle;
+            UIController.Instance.OnSpeedSliderValueChanged -= OnSettingsMoveSpeedChanged;
+            UIController.Instance.OnMouseSensitivitySliderValueChanged -= OnSettingsMouseSensitivityChanged;
+        }
 
         if (InputController.Instance != null)
             InputController.Instance.OnPauseToggle -= TogglePause;
@@ -85,6 +88,9 @@ public class GameController : BaseController<GameController>
 
         ChangeState(GameState.Running);
         Time.timeScale = 1f;
+
+        if (UIController.Instance != null)
+            UIController.Instance.SetTitleMenuActive(false);
 
         DestroyCurrentTimer();
 
@@ -129,6 +135,24 @@ public class GameController : BaseController<GameController>
     {
         ResetGame();
         StartGame();
+    }
+
+    public void ReturnToTitle()
+    {
+        ChangeState(GameState.Idle);
+        OnPauseStateChanged?.Invoke(false);
+        Time.timeScale = 1f;
+
+        if (DeplacementController.Instance != null)
+            DeplacementController.Instance.ResetPlayerPosition();
+
+        DestroyCurrentTimer();
+
+        SetLeverState("levier1", false, notify: false);
+        SetLeverState("levier2", false, notify: false);
+
+        if (UIController.Instance != null)
+            UIController.Instance.SetTitleMenuActive(true);
     }
 
     void TogglePause()
@@ -250,7 +274,6 @@ public class GameController : BaseController<GameController>
         SetLeverState(key, !GetLeverState(key), notify: true);
     }
 
-    // -------- Séquence d'endormissement à la défaite (fade + délai propre) --------
     IEnumerator LoseSleepSequence()
     {
         if (UIController.Instance != null)

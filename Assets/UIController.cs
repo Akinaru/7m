@@ -24,6 +24,7 @@ public class UIController : BaseController<UIController>
     public delegate void UIEventValueChange(float value);
 
     public event UIEvent OnButtonStartClicked;
+    public event UIEvent OnButtonEndClicked;
     public event UIEventValueChange OnSpeedSliderValueChanged;
     public event UIEventValueChange OnMouseSensitivitySliderValueChanged;
 
@@ -179,6 +180,12 @@ public class UIController : BaseController<UIController>
     {
         OnButtonStartClicked?.Invoke();
         SetTitleMenuActive(false);
+    }
+
+    public void ButtonEndClicked()
+    {
+        OnButtonEndClicked?.Invoke();
+        SetWinMenuActive(false);
     }
 
     public void ButtonResumeClicked()
