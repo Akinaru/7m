@@ -3612,7 +3612,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -3675,7 +3675,7 @@ Transform:
   m_GameObject: {fileID: 743466869}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.03, y: 2, z: -9.37}
+  m_LocalPosition: {x: -1.985, y: 2, z: -2.212}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7604,6 +7604,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3677315433022986243, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677315433022986243, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677315433022986243, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2034088282}
+    - target: {fileID: 3677315433022986243, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677315433022986243, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677315433022986243, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ActionController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677315433022986243, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4260472181488776125, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
       propertyPath: m_LocalScale.x
       value: 50
@@ -7659,6 +7687,38 @@ PrefabInstance:
     - target: {fileID: 4260472181488776125, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432866070836737469, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432866070836737469, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432866070836737469, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432866070836737469, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432866070836737469, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432866070836737469, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432866070836737469, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432866070836737469, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

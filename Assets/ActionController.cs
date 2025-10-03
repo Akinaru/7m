@@ -35,6 +35,17 @@ public class ActionController : BaseController<ActionController>
     {
     }
 
+    public void ToggleDoor()
+    {
+        if (!TryGetContext(out var ctx))
+            return;
+
+        if (PlayerController.Instance != null && PlayerController.Instance.playerRoot != null)
+        {
+            PlayerController.Instance.playerRoot.position =  new Vector3(-5.6f, 2f, -2.2f);
+        }
+    }
+
     public void ToggleLevier()
     {
         if (!TryGetContext(out var ctx))
