@@ -15,6 +15,7 @@ public class GameController : BaseController<GameController>
     public float mouseSensitivity = 1f;
     public const float MIN_MOUSE_SENSITIVITY = 0.1f;
     public const float MAX_MOUSE_SENSITIVITY = 4f;
+    public static readonly Vector3 START_POSITION = new Vector3(0f, 1f, 0f);
 
 
     // Events
@@ -99,6 +100,8 @@ public class GameController : BaseController<GameController>
         ChangeState(GameState.Idle);
         OnPauseStateChanged?.Invoke(false);
         Time.timeScale = 1f;
+        if (DeplacementController.Instance != null)
+            DeplacementController.Instance.ResetPlayerPosition();
         DestroyCurrentTimer();
     }
 

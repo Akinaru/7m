@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class DeplacementController : BaseController<DeplacementController>
 {
-    Rigidbody rb;
+    [Header("Rigidbody du joueur (auto assigné)")]
+    public Rigidbody rb;
     Transform playerRoot;
     Vector2 moveInput;
 
@@ -29,6 +30,13 @@ public class DeplacementController : BaseController<DeplacementController>
         }
     }
 
+    public void ResetPlayerPosition()
+    {
+        if (rb != null)
+            rb.position = GameController.START_POSITION;
+        Debug.Log("RESET POSITION");
+    }
+
     void OnSettingsMoveSpeedChanged(float newSpeed)
     {
         currentSpeed = newSpeed;
@@ -47,5 +55,6 @@ public class DeplacementController : BaseController<DeplacementController>
         Vector3 hv = dir * currentSpeed;
         //Debug.Log($"Current speed: {currentSpeed}");
         rb.velocity = new Vector3(hv.x, rb.velocity.y, hv.z);
+        Debug.Log($"Position du player: {rb.position}");
     }
 }
