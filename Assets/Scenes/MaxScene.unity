@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d94160837d864c55a79523134f7fbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preset: {fileID: 0}
+  preset: {fileID: 11400000, guid: a97fb41332dc74cc1a2b34c5500108ae, type: 2}
   OnInteract:
     m_PersistentCalls:
       m_Calls: []
@@ -1122,7 +1122,7 @@ Transform:
   m_GameObject: {fileID: 184534563}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.99, y: 0.42, z: 2.135253}
+  m_LocalPosition: {x: 0.67, y: 0.42, z: 2.135253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1192,10 +1192,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d94160837d864c55a79523134f7fbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preset: {fileID: 0}
+  preset: {fileID: 11400000, guid: 2c9c88bb165eb45269a82129d8979de2, type: 2}
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1412296866}
+        m_TargetAssemblyTypeName: ActionController, Assembly-CSharp
+        m_MethodName: ToggleLevier
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &218107226
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2310,14 +2322,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1412296866}
         m_TargetAssemblyTypeName: ActionController, Assembly-CSharp
-        m_MethodName: EnvoyerUnMessage
+        m_MethodName: ToggleLevier
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: levier1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!135 &415439432
@@ -3594,7 +3606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.71
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3651,6 +3663,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 640881466}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 640881468}
   m_SourcePrefab: {fileID: 100100000, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
 --- !u!1 &640881465 stripped
 GameObject:
@@ -3669,10 +3684,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d94160837d864c55a79523134f7fbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preset: {fileID: 0}
+  preset: {fileID: 11400000, guid: 2c9c88bb165eb45269a82129d8979de2, type: 2}
   OnInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1412296866}
+        m_TargetAssemblyTypeName: ActionController, Assembly-CSharp
+        m_MethodName: ToggleLevier
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!65 &640881468
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640881465}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &650763704
 GameObject:
   m_ObjectHideFlags: 0
@@ -8062,99 +8110,6 @@ Transform:
   - {fileID: 134115474}
   m_Father: {fileID: 817759576}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1927117071
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.93
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.74
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.95
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -2237319216410675810, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2eee17c94de8f48b589c58975afbafa2, type: 2}
-    - target: {fileID: -248005119892688762, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a077745c5f09f4b3680785ac30aa9bcf, type: 2}
-    - target: {fileID: 919132149155446097, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_Name
-      value: Mineways2Skfb (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1927117073}
-  m_SourcePrefab: {fileID: 100100000, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
---- !u!1 &1927117072 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
-  m_PrefabInstance: {fileID: 1927117071}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1927117073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927117072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d94160837d864c55a79523134f7fbf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preset: {fileID: 0}
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1942162953
 GameObject:
   m_ObjectHideFlags: 0
@@ -8697,11 +8652,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.29
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.57
+      value: 4.76
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8757,6 +8712,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2060551357}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2060551356}
   m_SourcePrefab: {fileID: 100100000, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
 --- !u!1 &2060551353 stripped
@@ -8764,8 +8722,36 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4308cc23d732f490f818dbfe0cf97de1, type: 3}
   m_PrefabInstance: {fileID: 2060551352}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &2060551356
-MeshCollider:
+--- !u!114 &2060551356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060551353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d94160837d864c55a79523134f7fbf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preset: {fileID: 11400000, guid: eabe0ad0bbd9f4b7cbc33f4116403518, type: 2}
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1412296866}
+        m_TargetAssemblyTypeName: ActionController, Assembly-CSharp
+        m_MethodName: ToggleLevier
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!65 &2060551357
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8782,10 +8768,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2071498097
 GameObject:
   m_ObjectHideFlags: 0
@@ -8909,9 +8894,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e094a11a045a4b4e804ed6144b0c7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDurationSeconds: 420
+  gameDurationSeconds: 10
   moveSpeed: 5
   mouseSensitivity: 1
+  FirstLevierActivated: 0
+  SecondLevierActivated: 0
+  ThirdLevierActivated: 0
 --- !u!4 &2091582655
 Transform:
   m_ObjectHideFlags: 0
@@ -9621,7 +9609,6 @@ SceneRoots:
   - {fileID: 493291122282890399}
   - {fileID: 2060551352}
   - {fileID: 640881464}
-  - {fileID: 1927117071}
   - {fileID: 415439435}
   - {fileID: 218107229}
   - {fileID: 184534568}

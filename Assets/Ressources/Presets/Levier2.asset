@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ccc308600a594c319d55b7444abe61d, type: 3}
   m_Name: Levier2
   m_EditorClassIdentifier: 
-  id: levier1
+  id: levier2
   displayName: Levier
   actionLabel: ACTIONNER LE LEVIER
