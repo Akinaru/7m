@@ -10,10 +10,6 @@ public abstract class BaseController<T> : MonoBehaviour where T : MonoBehaviour
             if (_instance == null)
             {
                 _instance = FindAnyObjectByType<T>();
-                if (_instance == null)
-                {
-                    Debug.LogError($"Aucune instance de {typeof(T).Name} trouvée dans la scène !");
-                }
             }
             return _instance;
         }
