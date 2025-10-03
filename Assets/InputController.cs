@@ -65,7 +65,7 @@ public class InputController : BaseController<InputController>
 
     public void GameStateChanged(GameController.GameState state)
     {
-        if (state == GameController.GameState.Running)
+        if (state == GameController.GameState.Running || state == GameController.GameState.Ended)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
