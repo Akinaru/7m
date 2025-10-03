@@ -19,6 +19,12 @@ public class GameController : BaseController<GameController>
 
     public static readonly Vector3 START_POSITION = new Vector3(0f, 1f, 0f);
 
+    [Header("Perte: séquence d'endormissement")]
+    public float loseFadeOut = 1.0f;     // durée du fade vers noir
+    public float loseBlackHold = 4f;   // temps à rester en noir
+    public float loseFadeIn = 0.8f;      // durée du fade retour
+    public bool autoRestartAfterLose = true;
+
     // Etats leviers
     public bool FirstLevierActivated = false;
     public bool SecondLevierActivated = false;
@@ -95,9 +101,13 @@ public class GameController : BaseController<GameController>
         if (State != GameState.Running && State != GameState.Paused) return;
 
         ChangeState(GameState.Ended);
-        UIController.Instance.SetTitleMenuActive(false);
+        if (UIController.Instance != null)
+            UIController.Instance.SetTitleMenuActive(false);
+
         OnPauseStateChanged?.Invoke(false);
         Time.timeScale = 1f;
+
+        StartCoroutine(LoseSleepSequence());
     }
 
     public void ResetGame()
@@ -106,14 +116,11 @@ public class GameController : BaseController<GameController>
         OnPauseStateChanged?.Invoke(false);
         Time.timeScale = 1f;
 
-        // Reset joueur
         if (DeplacementController.Instance != null)
             DeplacementController.Instance.ResetPlayerPosition();
 
-        // Reset minuteries
         DestroyCurrentTimer();
 
-        // Reset leviers (et notifie les contrôleurs visuels)
         SetLeverState("levier1", false);
         SetLeverState("levier2", false);
     }
@@ -155,7 +162,6 @@ public class GameController : BaseController<GameController>
     void HandleTimerFinished()
     {
         EndGame();
-        StartCoroutine(RestartNextFrameRealtime());
     }
 
     void HandleTimerTick(int whole, float elapsed, float remaining)
@@ -167,18 +173,6 @@ public class GameController : BaseController<GameController>
         while (currentTimer != null && currentTimer.Update())
             yield return null;
         timerLoopCo = null;
-    }
-
-    IEnumerator RestartNextFrameRealtime()
-    {
-        if (isRestarting) yield break;
-
-        isRestarting = true;
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForSecondsRealtime(0.01f);
-        isRestarting = false;
-
-        RestartGame();
     }
 
     void DestroyCurrentTimer()
@@ -216,11 +210,10 @@ public class GameController : BaseController<GameController>
         {
             ChangeState(GameState.Win);
             OnGameStateChanged?.Invoke(State);
-            currentTimer.Pause();
+            if (currentTimer != null) currentTimer.Pause();
             Time.timeScale = 0f;
         }
     }
-
 
     public bool GetLeverState(string key)
     {
@@ -255,5 +248,28 @@ public class GameController : BaseController<GameController>
     public void ToggleLever(string key)
     {
         SetLeverState(key, !GetLeverState(key), notify: true);
+    }
+
+    // -------- Séquence d'endormissement à la défaite (fade + délai propre) --------
+    IEnumerator LoseSleepSequence()
+    {
+        if (UIController.Instance != null)
+            UIController.Instance.FadeToBlack(loseFadeOut);
+
+        yield return new WaitForSecondsRealtime(loseFadeOut + loseBlackHold);
+
+        ResetGame();
+
+        if (UIController.Instance != null)
+            UIController.Instance.FadeFromBlack(loseFadeIn);
+
+        if (autoRestartAfterLose)
+            yield return StartGameNextFrame();
+    }
+
+    IEnumerator StartGameNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        StartGame();
     }
 }

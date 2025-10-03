@@ -17,6 +17,9 @@ public class UIController : BaseController<UIController>
     public Slider SpeedSlider;
     public Slider MouseSensitivitySlider;
 
+    // Ajout: CanvasGroup du panneau noir (plein écran) pour le fade
+    public CanvasGroup BlackoutCanvasGroup;
+
     public delegate void UIEvent();
     public delegate void UIEventValueChange(float value);
 
@@ -38,6 +41,13 @@ public class UIController : BaseController<UIController>
             InteractionController.Instance.OnLookAtInteractable += OnInteractableLookedAt;
 
         this.CheckImport();
+
+        // Bind du CanvasGroup noir au FadeController
+        if (FadeController.Instance != null && BlackoutCanvasGroup != null)
+        {
+            FadeController.Instance.Bind(BlackoutCanvasGroup);
+            FadeController.Instance.SetBlackInstant(false);
+        }
 
         if (GameController.Instance != null)
         {
@@ -92,6 +102,8 @@ public class UIController : BaseController<UIController>
             Debug.LogError("[UIController] MouseSensitivitySlider n'est pas assigné dans l'inspecteur.");
         if (WinMenu == null)
             Debug.LogError("[UIController] WinMenu n'est pas assigné dans l'inspecteur.");
+        if (BlackoutCanvasGroup == null)
+            Debug.LogError("[UIController] BlackoutCanvasGroup (fade) n'est pas assigné dans l'inspecteur.");
     }
 
     private void OnInteractableLookedAt(bool isActive, Interactable interactableObject)
@@ -126,21 +138,18 @@ public class UIController : BaseController<UIController>
         }
     }
 
-    // Changer l'état d'afichage du panneau d'interaction
     private void SetPanelActive(bool isActive)
     {
         if (interactablePanel != null)
             interactablePanel.SetActive(isActive);
     }
 
-    // Changer l'état d'afichage du Menu Titre
     public void SetTitleMenuActive(bool show)
     {
         if (TitleMenu != null)
             TitleMenu.SetActive(show);
     }
 
-    // Changer l'état d'afichage du Menu Pause
     public void SetPauseMenuActive(bool show)
     {
         if (PauseMenu != null)
@@ -166,29 +175,51 @@ public class UIController : BaseController<UIController>
         }
     }
 
-    // Methode lors du clique sur le bouton de start
     public void ButtonStartClicked()
     {
         OnButtonStartClicked?.Invoke();
         SetTitleMenuActive(false);
     }
 
-    // Methode lors du clique sur le bouton de resume
     public void ButtonResumeClicked()
     {
         if (GameController.Instance != null)
             GameController.Instance.PauseGame();
     }
 
-    // Methode lors du changement de la valeur du slider de vitesse 
     public void OnSpeedValueChangeInMenu(float speed)
     {
         OnSpeedSliderValueChanged?.Invoke(speed);
     }
 
-    // Methode lors du changement de la valeur du slider de sensibilité de la souris 
     public void OnMouseSensitivityValueChangeInMenu(float sensitivity)
     {
         OnMouseSensitivitySliderValueChanged?.Invoke(sensitivity);
+    }
+
+    // ---- Contrôles de fade via UIController ----
+
+    public void FadeToBlack(float duration = 1f)
+    {
+        if (FadeController.Instance != null)
+            FadeController.Instance.FadeToBlack(duration);
+    }
+
+    public void FadeFromBlack(float duration = 1f)
+    {
+        if (FadeController.Instance != null)
+            FadeController.Instance.FadeFromBlack(duration);
+    }
+
+    public void SetBlackoutInstant(bool black)
+    {
+        if (FadeController.Instance != null)
+            FadeController.Instance.SetBlackInstant(black);
+    }
+
+    public void ResetBlackout()
+    {
+        if (FadeController.Instance != null)
+            FadeController.Instance.ResetFade();
     }
 }
