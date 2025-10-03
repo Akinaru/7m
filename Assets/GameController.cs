@@ -17,6 +17,10 @@ public class GameController : BaseController<GameController>
     public const float MAX_MOUSE_SENSITIVITY = 4f;
     public static readonly Vector3 START_POSITION = new Vector3(0f, 1f, 0f);
 
+    // Variable d'état du jeu
+    public bool FirstLevierActivated = false;
+    public bool SecondLevierActivated = false;
+    public bool ThirdLevierActivated = false;
 
     // Events
     public delegate void GameEvent(GameState state);

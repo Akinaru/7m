@@ -1,20 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+// Interactable.cs
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class InteractEvent : UnityEvent<Interactable> { }
 
 public class Interactable : MonoBehaviour
 {
-    public string customName;
-    public string labelAction;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public InteractablePreset preset;
+    public InteractEvent OnInteract;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string Id => preset != null ? preset.id : null;
+    public string DisplayName => preset != null ? preset.displayName : null;
+    public string ActionLabel => preset != null ? preset.actionLabel : null;
 }

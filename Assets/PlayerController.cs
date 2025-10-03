@@ -20,7 +20,7 @@ public class PlayerController : BaseController<PlayerController>
     void Awake()
     {
         if (!playerRoot) playerRoot = transform;
-        if (!playerCamera) playerCamera = GetComponentInChildren<Camera>(true);
+        if (!playerCamera && playerRoot) playerCamera = playerRoot.GetComponentInChildren<Camera>(true);
 
         rb = playerRoot.GetComponent<Rigidbody>();
         rb.useGravity = true;

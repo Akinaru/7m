@@ -1,3 +1,4 @@
+// InteractionController.cs
 using System;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class InteractionController : BaseController<InteractionController>
 
     private Interactable lastObject = null;
     private Interactable interactableObject = null;
-    private RaycastHit lastHit; // sauvegarde du hit actuel
+    private RaycastHit lastHit;
 
     private void OnEnable()
     {
@@ -25,22 +26,49 @@ public class InteractionController : BaseController<InteractionController>
 
     private void HandleClick(int button)
     {
-        if (button == 0) // clic gauche
-        {
-            if (interactableObject != null)
-            {
-                switch (interactableObject.customName)
-                {
-                    case "Cube":
-                        // utilise le transform directement via le hit
-                        lastHit.collider.transform.position = new Vector3(0, 2, 0);
-                        break;
+        if (button != 0) return;
+        if (interactableObject == null) return;
 
-                    default:
-                        Debug.Log("Interaction avec : " + interactableObject.customName);
-                        break;
-                }
+        // Alimente le contexte avant toute action
+        if (ActionController.Instance != null)
+        {
+            ActionController.Instance.SetContext(new ActionController.InteractionContext
+            {
+                Hit = lastHit,
+                Interactable = interactableObject
+            });
+        }
+
+        if (interactableObject.OnInteract != null)
+        {
+            interactableObject.OnInteract.Invoke(interactableObject);
+            return;
+        }
+
+        var id = interactableObject.Id;
+        if (!string.IsNullOrEmpty(id))
+        {
+            switch (id)
+            {
+                case "cube":
+                    lastHit.collider.transform.position = new Vector3(0, 2, 0);
+                    break;
+                default:
+                    Debug.Log("Interaction sans event avec id: " + id);
+                    break;
             }
+            return;
+        }
+
+        var name = interactableObject.DisplayName ?? "(no name)";
+        switch (name)
+        {
+            case "Cube":
+                lastHit.collider.transform.position = new Vector3(0, 2, 0);
+                break;
+            default:
+                Debug.Log("Interaction avec : " + name);
+                break;
         }
     }
 
@@ -54,20 +82,19 @@ public class InteractionController : BaseController<InteractionController>
         if (PlayerController.Instance.playerCamera == null) return;
 
         Ray ray = PlayerController.Instance.playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
         bool isLooking = false;
+        interactableObject = null;
 
-        interactableObject = null; // reset par défaut
-
-        if (Physics.Raycast(ray, out hit, rayDistance))
+        if (Physics.Raycast(ray, out var hit, rayDistance))
         {
             if (hit.collider.CompareTag("Interactable"))
             {
-                interactableObject = hit.collider.GetComponent<Interactable>();
-                if (interactableObject != null)
+                var it = hit.collider.GetComponent<Interactable>();
+                if (it != null)
                 {
+                    interactableObject = it;
                     isLooking = true;
-                    lastHit = hit; // sauvegarde du hit actuel
+                    lastHit = hit;
                 }
             }
         }

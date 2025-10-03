@@ -113,10 +113,10 @@ public class UIController : BaseController<UIController>
         if (interactableObject != null)
         {
             if (interactableName != null)
-                interactableName.text = interactableObject.customName;
+                interactableName.text = interactableObject.DisplayName;
 
             if (interactableLabelAction != null)
-                interactableLabelAction.text = interactableObject.labelAction;
+                interactableLabelAction.text = interactableObject.ActionLabel;
         }
     }
 
@@ -146,14 +146,12 @@ public class UIController : BaseController<UIController>
         SetPauseMenuActive(isPaused);
     }
 
-
     // Methode lors du clique sur le bouton de start
     public void ButtonStartClicked()
     {
         OnButtonStartClicked?.Invoke();
         SetTitleMenuActive(false);
     }
-
 
     // Methode lors du clique sur le bouton de resume
     public void ButtonResumeClicked()
