@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractionController : BaseController<InteractionController>
 {
-    float rayDistance = 10f;
+    float rayDistance = 4f;
 
     public event Action<bool, Interactable> OnLookAtInteractable;
 

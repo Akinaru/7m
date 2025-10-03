@@ -52,7 +52,7 @@ public class ActionController : BaseController<ActionController>
             }
             else
             {
-                PlayerController.Instance.playerRoot.position = new Vector3(-1.9f, 2f, -2.2f);
+                PlayerController.Instance.playerRoot.position = GameController.START_POSITION;
                 GameController.Instance.PlayerInBus = true;
             }
         }
@@ -74,6 +74,7 @@ public class ActionController : BaseController<ActionController>
         {
             case "levier1":
             case "levier2":
+            case "levier3":
                 GameController.Instance.ToggleLever(key);
                 break;
             default:

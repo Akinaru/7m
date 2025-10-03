@@ -17,7 +17,7 @@ public class GameController : BaseController<GameController>
     public const float MIN_MOUSE_SENSITIVITY = 0.1f;
     public const float MAX_MOUSE_SENSITIVITY = 4f;
 
-    public static readonly Vector3 START_POSITION = new Vector3(0f, 1f, 0f);
+    public static readonly Vector3 START_POSITION = new Vector3(-1.9f, 2f, -2.2f);
 
     [Header("Perte: séquence d'endormissement")]
     public float loseFadeOut = 1.0f;
@@ -123,6 +123,7 @@ public class GameController : BaseController<GameController>
 
     public void ResetGame()
     {
+        this.PlayerInBus = true;
         ChangeState(GameState.Idle);
         OnPauseStateChanged?.Invoke(false);
         Time.timeScale = 1f;

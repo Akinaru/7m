@@ -48,6 +48,7 @@ public class LevierController : MonoBehaviour
         GameObject go = key == "levier1" ? Levier1 :
                         key == "levier2" ? Levier2 : key == "levier3" ? Levier3 : null;
 
+        Debug.Log("[LevierController] Apply state change: " + key + " -> " + isActive, this);
         if (go == null) return;
 
         var t = go.transform;
