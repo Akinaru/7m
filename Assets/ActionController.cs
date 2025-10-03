@@ -27,6 +27,37 @@ public class ActionController : BaseController<ActionController>
         return false;
     }
 
+    void Start()
+    {
+    }
+
+    void Update()
+    {
+    }
+
+    public void TpOutOfBus()
+    {
+        if (!TryGetContext(out var ctx))
+            return;
+
+
+        if (PlayerController.Instance != null && PlayerController.Instance.playerRoot != null)
+        {
+            bool inBus = GameController.Instance.PlayerInBus;
+
+            if (inBus)
+            {
+                PlayerController.Instance.playerRoot.position = new Vector3(-4.8f, 1.2f, -3.4f);
+                GameController.Instance.PlayerInBus = false;
+            }
+            else
+            {
+                PlayerController.Instance.playerRoot.position = new Vector3(-1.9f, 2f, -2.2f);
+                GameController.Instance.PlayerInBus = true;
+            }
+        }
+    }
+
     public void ToggleLevier()
     {
         if (!TryGetContext(out var ctx))
