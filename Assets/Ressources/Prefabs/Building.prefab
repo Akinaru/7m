@@ -1048,6 +1048,7 @@ GameObject:
   - component: {fileID: 160248674718794340}
   - component: {fileID: 5538211935276956304}
   - component: {fileID: 6771613541529265946}
+  - component: {fileID: 4014243974166265907}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -1120,6 +1121,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4014243974166265907
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215480672424404287}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3262789968867269347, guid: 3c7d5dece75cf9845ad850601668e7d8, type: 3}
 --- !u!1 &7001958731787364147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,6 +1237,7 @@ GameObject:
   - component: {fileID: 8161636839556818739}
   - component: {fileID: 3037394737317325024}
   - component: {fileID: 6266216674024982543}
+  - component: {fileID: 5343395939285906311}
   m_Layer: 0
   m_Name: Dumpster_A1
   m_TagString: Untagged
@@ -1286,6 +1310,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5343395939285906311
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7073721214400616280}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5015366502849066352, guid: 3c7d5dece75cf9845ad850601668e7d8, type: 3}
 --- !u!1 &7121774360019778617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,6 +2083,10 @@ PrefabInstance:
     - target: {fileID: 6316972516043028160, guid: 30ed2be10f82941878f893f2138ff3b7, type: 3}
       propertyPath: m_Name
       value: Window Light 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782442136795146525, guid: 30ed2be10f82941878f893f2138ff3b7, type: 3}
+      propertyPath: m_Intensity
+      value: 11.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
