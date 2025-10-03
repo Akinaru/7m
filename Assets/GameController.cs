@@ -27,6 +27,7 @@ public class GameController : BaseController<GameController>
 
     public bool FirstLevierActivated = false;
     public bool SecondLevierActivated = false;
+    public bool ThirdLevierActivated = false;
 
     // Etats Player
     public bool PlayerInBus = true;
@@ -154,6 +155,7 @@ public class GameController : BaseController<GameController>
 
         SetLeverState("levier1", false, notify: false);
         SetLeverState("levier2", false, notify: false);
+        SetLeverState("levier3", false, notify: false);
 
         if (UIController.Instance != null)
             UIController.Instance.SetTitleMenuActive(true);
@@ -249,6 +251,7 @@ public class GameController : BaseController<GameController>
         {
             case "levier1": return FirstLevierActivated;
             case "levier2": return SecondLevierActivated;
+            case "levier3": return ThirdLevierActivated;
             default: return false;
         }
     }
@@ -262,6 +265,9 @@ public class GameController : BaseController<GameController>
                 break;
             case "levier2":
                 SecondLevierActivated = value;
+                break;
+            case "levier3":
+                ThirdLevierActivated = value;
                 break;
             default:
                 return;

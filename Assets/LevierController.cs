@@ -6,6 +6,7 @@ public class LevierController : MonoBehaviour
     [Header("Références (drag & drop)")]
     public GameObject Levier1;
     public GameObject Levier2;
+    public GameObject Levier3;
 
     [Header("Configuration visuelle")]
     public float inactiveZPos = 0f;
@@ -27,6 +28,7 @@ public class LevierController : MonoBehaviour
             GameController.Instance.OnLeverStateChanged += OnLeverStateChanged;
             Apply("levier1", GameController.Instance.GetLeverState("levier1"));
             Apply("levier2", GameController.Instance.GetLeverState("levier2"));
+            Apply("levier3", GameController.Instance.GetLeverState("levier3"));
         }
     }
 
@@ -44,7 +46,8 @@ public class LevierController : MonoBehaviour
     void Apply(string key, bool isActive)
     {
         GameObject go = key == "levier1" ? Levier1 :
-                        key == "levier2" ? Levier2 : null;
+                        key == "levier2" ? Levier2 : key == "levier3" ? Levier3 : null;
+
         if (go == null) return;
 
         var t = go.transform;
@@ -60,6 +63,7 @@ public class LevierController : MonoBehaviour
         if (GameController.Instance == null) return;
         Apply("levier1", GameController.Instance.GetLeverState("levier1"));
         Apply("levier2", GameController.Instance.GetLeverState("levier2"));
+        Apply("levier3", GameController.Instance.GetLeverState("levier3"));
     }
 
     void CheckImport()
@@ -68,5 +72,7 @@ public class LevierController : MonoBehaviour
             Debug.LogError("[LevierController] Missing reference: 'Levier1' is not assigned.", this);
         if (Levier2 == null)
             Debug.LogError("[LevierController] Missing reference: 'Levier2' is not assigned.", this);
+        if (Levier3 == null)
+            Debug.LogError("[LevierController] Missing reference: 'Levier3' is not assigned.", this);
     }
 }
