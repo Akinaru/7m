@@ -29,6 +29,9 @@ public class GameController : BaseController<GameController>
     public bool FirstLevierActivated = false;
     public bool SecondLevierActivated = false;
 
+    // Etats Player
+    public bool PlayerInBus = true;
+
     // Events
     public delegate void GameEvent(GameState state);
     public event GameEvent OnGameStateChanged;

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: porte
   displayName: Porte
-  actionLabel: OUVRIR
+  actionLabel: SORTIR

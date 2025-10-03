@@ -39,10 +39,17 @@ public class ActionController : BaseController<ActionController>
     {
         if (!TryGetContext(out var ctx))
             return;
+            
 
         if (PlayerController.Instance != null && PlayerController.Instance.playerRoot != null)
         {
-            PlayerController.Instance.playerRoot.position =  new Vector3(-5.6f, 2f, -2.2f);
+            bool inBus = GameController.Instance.PlayerInBus;
+
+            if (inBus)
+            {
+                PlayerController.Instance.playerRoot.position = new Vector3(-5.6f, 2f, -2.2f);
+                GameController.Instance.PlayerInBus = false;
+            }
         }
     }
 
