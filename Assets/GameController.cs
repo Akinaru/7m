@@ -134,6 +134,7 @@ public class GameController : BaseController<GameController>
 
         SetLeverState("levier1", false);
         SetLeverState("levier2", false);
+        SetLeverState("levier3", false);
     }
 
     public void RestartGame()
@@ -236,7 +237,7 @@ public class GameController : BaseController<GameController>
 
     public void CheckWinCondition()
     {
-        if (FirstLevierActivated && SecondLevierActivated)
+        if (FirstLevierActivated && SecondLevierActivated && ThirdLevierActivated)
         {
             ChangeState(GameState.Win);
             OnGameStateChanged?.Invoke(State);
