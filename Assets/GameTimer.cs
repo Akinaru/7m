@@ -64,7 +64,7 @@ public class GameTimer
             lastWhole = whole;
             float remaining = RemainingSeconds;
             OnSecondTick?.Invoke(whole, ElapsedSeconds, remaining);
-            Debug.Log("Timer tick: " + whole + "s elapsed, " + remaining + "s remaining");
+            Debug.Log("Timer: " + remaining);
         }
 
         if (ElapsedSeconds >= DurationSeconds)

@@ -27,22 +27,10 @@ public class ActionController : BaseController<ActionController>
         return false;
     }
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
     public void ToggleLevier()
     {
         if (!TryGetContext(out var ctx))
             return;
-
-        var targetTransform = ctx.Hit.collider != null ? ctx.Hit.collider.transform : ctx.Interactable.transform;
-
-        targetTransform.Rotate(0f, 180f, 0f, Space.Self);
 
         if (GameController.Instance == null)
             return;
@@ -54,24 +42,11 @@ public class ActionController : BaseController<ActionController>
         switch (key)
         {
             case "levier1":
-                GameController.Instance.FirstLevierActivated = !GameController.Instance.FirstLevierActivated;
-                break;
             case "levier2":
-                GameController.Instance.SecondLevierActivated = !GameController.Instance.SecondLevierActivated;
-                break;
-            case "levier3":
-                GameController.Instance.ThirdLevierActivated = !GameController.Instance.ThirdLevierActivated;
+                GameController.Instance.ToggleLever(key);
                 break;
             default:
-                break;
+                return;
         }
-
-        Debug.Log(
-            $"Leviers -> First:{GameController.Instance.FirstLevierActivated} | " +
-            $"Second:{GameController.Instance.SecondLevierActivated} | " +
-            $"Third:{GameController.Instance.ThirdLevierActivated}"
-        );
     }
-
-
 }

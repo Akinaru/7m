@@ -13,6 +13,7 @@ public class UIController : BaseController<UIController>
     public TMP_Text interactableLabelAction;
     public GameObject TitleMenu;
     public GameObject PauseMenu;
+    public GameObject WinMenu;
     public Slider SpeedSlider;
     public Slider MouseSensitivitySlider;
 
@@ -28,6 +29,7 @@ public class UIController : BaseController<UIController>
         SetCursorNormal();
         SetPanelActive(false);
         SetPauseMenuActive(false);
+        SetWinMenuActive(false);
     }
 
     private void OnEnable()
@@ -40,6 +42,8 @@ public class UIController : BaseController<UIController>
         if (GameController.Instance != null)
         {
             GameController.Instance.OnPauseStateChanged += HandlePauseStateChanged;
+            GameController.Instance.OnGameStateChanged += HandleGameStateChanged;
+
             if (SpeedSlider != null)
             {
                 SpeedSlider.minValue = GameController.MIN_MOVE_SPEED;
@@ -86,6 +90,8 @@ public class UIController : BaseController<UIController>
             Debug.LogError("[UIController] SpeedSlider n'est pas assigné dans l'inspecteur.");
         if (MouseSensitivitySlider == null)
             Debug.LogError("[UIController] MouseSensitivitySlider n'est pas assigné dans l'inspecteur.");
+        if (WinMenu == null)
+            Debug.LogError("[UIController] WinMenu n'est pas assigné dans l'inspecteur.");
     }
 
     private void OnInteractableLookedAt(bool isActive, Interactable interactableObject)
@@ -141,9 +147,23 @@ public class UIController : BaseController<UIController>
             PauseMenu.SetActive(show);
     }
 
+    public void SetWinMenuActive(bool show)
+    {
+        if (WinMenu != null)
+            WinMenu.SetActive(show);
+    }
+
     private void HandlePauseStateChanged(bool isPaused)
     {
         SetPauseMenuActive(isPaused);
+    }
+
+    private void HandleGameStateChanged(GameController.GameState newState)
+    {
+        if (newState == GameController.GameState.Win)
+        {
+            SetWinMenuActive(true);
+        }
     }
 
     // Methode lors du clique sur le bouton de start
