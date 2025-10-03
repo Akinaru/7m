@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class DeplacementController : BaseController<DeplacementController>
 {
-    Rigidbody rb;
+    [Header("Rigidbody du joueur (auto assigné)")]
+    public Rigidbody rb;
     Transform playerRoot;
     Vector2 moveInput;
 
@@ -27,6 +28,12 @@ public class DeplacementController : BaseController<DeplacementController>
             currentSpeed = GameController.Instance.moveSpeed;
             GameController.Instance.OnMoveSpeedChanged += OnSettingsMoveSpeedChanged;
         }
+    }
+
+    public void ResetPlayerPosition()
+    {
+        if (rb != null)
+            rb.position = GameController.START_POSITION;
     }
 
     void OnSettingsMoveSpeedChanged(float newSpeed)
