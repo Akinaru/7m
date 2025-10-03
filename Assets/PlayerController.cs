@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class PlayerController : BaseController<PlayerController>
 {
-    public Transform playerRoot;    // Capsule avec Rigidbody
+    [Header("Object du joueur")]
+    public Transform playerRoot;
+    [Header("Camera du joueur (auto assignée)")]
     public Camera playerCamera;
-    public float mouseSensitivity = 2f;
-    public float minPitch = -89f;
-    public float maxPitch = 89f;
+    [Header("Sensibilité de la souris")]
+    float mouseSensitivity = 1f;
+    float minPitch = -89f;
+    float maxPitch = 89f;
 
     Transform camT;
     Rigidbody rb;
@@ -36,6 +39,8 @@ public class PlayerController : BaseController<PlayerController>
 
     void OnEnable()
     {
+        this.CheckImport();
+
         if (InputController.Instance != null)
             InputController.Instance.OnLook += OnLookInput;
     }
@@ -44,6 +49,12 @@ public class PlayerController : BaseController<PlayerController>
     {
         if (InputController.Instance != null)
             InputController.Instance.OnLook -= OnLookInput;
+    }
+
+    public void CheckImport()
+    {
+        if (playerRoot == null)
+            Debug.LogError("[PlayerController] playerRoot n'est pas assigné dans l'éditeur.");
     }
 
     void OnLookInput(Vector2 delta)

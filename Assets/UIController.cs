@@ -35,6 +35,8 @@ public class UIController : BaseController<UIController>
         if (InteractionController.Instance != null)
             InteractionController.Instance.OnLookAtInteractable += OnInteractableLookedAt;
 
+        this.CheckImport();
+
         if (GameController.Instance != null)
         {
             GameController.Instance.OnPauseStateChanged += HandlePauseStateChanged;
@@ -44,24 +46,12 @@ public class UIController : BaseController<UIController>
                 SpeedSlider.maxValue = GameController.MAX_MOVE_SPEED;
                 SpeedSlider.value = GameController.Instance.moveSpeed;
             }
-            else
-            {
-                Debug.LogError("[UIController] SpeedSlider n'est pas assigné dans l'inspecteur.");
-            }
             if (MouseSensitivitySlider != null)
             {
                 MouseSensitivitySlider.minValue = GameController.MIN_MOUSE_SENSITIVITY;
                 MouseSensitivitySlider.maxValue = GameController.MAX_MOUSE_SENSITIVITY;
                 MouseSensitivitySlider.value = GameController.Instance.mouseSensitivity;
             }
-            else
-            {
-                Debug.LogError("[UIController] MouseSensitivitySlider n'est pas assigné dans l'inspecteur.");
-            }
-        }
-        else
-        {
-            Debug.LogError("[UIController] GameController n'a pas d'instance.");
         }
     }
 
@@ -72,6 +62,30 @@ public class UIController : BaseController<UIController>
 
         if (GameController.Instance != null)
             GameController.Instance.OnPauseStateChanged -= HandlePauseStateChanged;
+    }
+
+    public void CheckImport()
+    {
+        if (cursorImage == null)
+            Debug.LogError("[UIController] cursorImage n'est pas assigné dans l'inspecteur.");
+        if (cursorSprite == null)
+            Debug.LogError("[UIController] cursorSprite n'est pas assigné dans l'inspecteur.");
+        if (activeCursorSprite == null)
+            Debug.LogError("[UIController] activeCursorSprite n'est pas assigné dans l'inspecteur.");
+        if (interactablePanel == null)
+            Debug.LogError("[UIController] interactablePanel n'est pas assigné dans l'inspecteur.");
+        if (interactableName == null)
+            Debug.LogError("[UIController] interactableName n'est pas assigné dans l'inspecteur.");
+        if (interactableLabelAction == null)
+            Debug.LogError("[UIController] interactableLabelAction n'est pas assigné dans l'inspecteur.");
+        if (TitleMenu == null)
+            Debug.LogError("[UIController] TitleMenu n'est pas assigné dans l'inspecteur.");
+        if (PauseMenu == null)
+            Debug.LogError("[UIController] PauseMenu n'est pas assigné dans l'inspecteur.");
+        if (SpeedSlider == null)
+            Debug.LogError("[UIController] SpeedSlider n'est pas assigné dans l'inspecteur.");
+        if (MouseSensitivitySlider == null)
+            Debug.LogError("[UIController] MouseSensitivitySlider n'est pas assigné dans l'inspecteur.");
     }
 
     private void OnInteractableLookedAt(bool isActive, Interactable interactableObject)
