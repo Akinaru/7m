@@ -7622,7 +7622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3677315433022986243, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToggleDoor
+      value: TpOutOfBus
       objectReference: {fileID: 0}
     - target: {fileID: 3677315433022986243, guid: 16b5e166d406744018482dd4304a54a4, type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -7891,8 +7891,10 @@ MonoBehaviour:
   interactableLabelAction: {fileID: 1349801019}
   TitleMenu: {fileID: 2013194802}
   PauseMenu: {fileID: 1119786008}
+  WinMenu: {fileID: 0}
   SpeedSlider: {fileID: 142053799}
   MouseSensitivitySlider: {fileID: 650763706}
+  BlackoutCanvasGroup: {fileID: 0}
 --- !u!4 &1951718073
 Transform:
   m_ObjectHideFlags: 0
@@ -8488,9 +8490,12 @@ MonoBehaviour:
   gameDurationSeconds: 420
   moveSpeed: 5
   mouseSensitivity: 1
+  loseFadeOut: 1
+  loseBlackHold: 4
+  loseFadeIn: 0.8
+  autoRestartAfterLose: 1
   FirstLevierActivated: 0
   SecondLevierActivated: 0
-  ThirdLevierActivated: 0
 --- !u!4 &2091582655
 Transform:
   m_ObjectHideFlags: 0
