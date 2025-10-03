@@ -10,18 +10,33 @@ public class InputController : BaseController<InputController>
 
     public event Action OnPauseToggle;
 
-    void Start()
+    float mouseSensitivity = 1f;
+
+    void OnEnable()
     {
-        GameController.Instance.OnGameStateChanged += GameStateChanged;
+        if (GameController.Instance != null)
+        {
+            GameController.Instance.OnGameStateChanged += GameStateChanged;
+            GameController.Instance.OnMouseSensitivityChanged += OnSettingsMouseSensitivityChanged;
+
+            mouseSensitivity = GameController.Instance.mouseSensitivity;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (GameController.Instance != null)
+        {
+            GameController.Instance.OnGameStateChanged -= GameStateChanged;
+            GameController.Instance.OnMouseSensitivityChanged -= OnSettingsMouseSensitivityChanged;
+        }
     }
 
     void Update()
     {
-        // Toujours écouter Escape pour toggle pause (même en Paused)
         if (Input.GetKeyDown(KeyCode.Escape))
             OnPauseToggle?.Invoke();
 
-        // Bloquer le reste des inputs si on n'est pas en Running
         if (GameController.Instance.State != GameController.GameState.Running)
             return;
 
@@ -33,10 +48,19 @@ public class InputController : BaseController<InputController>
 
         float mx = Input.GetAxis("Mouse X");
         float my = Input.GetAxis("Mouse Y");
-        if (mx != 0f || my != 0f) OnLook?.Invoke(new Vector2(mx, my));
+        if (mx != 0f || my != 0f)
+        {
+            Vector2 look = new Vector2(mx, my) * mouseSensitivity;
+            OnLook?.Invoke(look);
+        }
 
         if (Input.GetMouseButtonDown(0))
             OnClick?.Invoke(0);
+    }
+
+    public void OnSettingsMouseSensitivityChanged(float newSensitivity)
+    {
+        mouseSensitivity = newSensitivity;
     }
 
     public void GameStateChanged(GameController.GameState state)

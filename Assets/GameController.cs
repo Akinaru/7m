@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class GameController : BaseController<GameController>
 {
+    // Variable de jeu
     [Header("Durée de partie")]
     public float gameDurationSeconds = 7f * 60f; // 7 minutes
+    [Header("Vitesse du joueur")]
+    public float moveSpeed = 5f;
+    public const float MIN_MOVE_SPEED = 1f;
+    public const float MAX_MOVE_SPEED = 20f;
+    [Header("Sensibilité de la souris")]
+    public float mouseSensitivity = 1f;
+    public const float MIN_MOUSE_SENSITIVITY = 0.1f;
+    public const float MAX_MOUSE_SENSITIVITY = 4f;
 
+
+    // Events
     public delegate void GameEvent(GameState state);
     public event GameEvent OnGameStateChanged;
 
     public event System.Action<bool> OnPauseStateChanged;
+
+    public delegate void GameSettingsEvent(float newValue);
+    public event GameSettingsEvent OnMoveSpeedChanged;
+    public event GameSettingsEvent OnMouseSensitivityChanged;
 
     public enum GameState { Idle, Running, Paused, Ended }
     public GameState State { get; private set; } = GameState.Idle;
@@ -22,10 +37,16 @@ public class GameController : BaseController<GameController>
     void OnEnable()
     {
         if (UIController.Instance != null)
+        {
             UIController.Instance.OnButtonStartClicked += StartGame;
+            UIController.Instance.OnSpeedSliderValueChanged += OnSettingsMoveSpeedChanged;
+            UIController.Instance.OnMouseSensitivitySliderValueChanged += OnSettingsMouseSensitivityChanged;
+        }
 
         if (InputController.Instance != null)
             InputController.Instance.OnPauseToggle += TogglePause;
+
+
     }
 
     void OnDisable()
@@ -167,5 +188,17 @@ public class GameController : BaseController<GameController>
             currentTimer.Stop();
             currentTimer = null;
         }
+    }
+
+    public void OnSettingsMoveSpeedChanged(float newSpeed)
+    {
+        moveSpeed = newSpeed;
+        OnMoveSpeedChanged?.Invoke(newSpeed);
+    }
+
+    public void OnSettingsMouseSensitivityChanged(float newSensitivity)
+    {
+        mouseSensitivity = newSensitivity;
+        OnMouseSensitivityChanged?.Invoke(newSensitivity);
     }
 }
