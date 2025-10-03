@@ -62,3 +62,8 @@ La ville s’éteint continuellement. Coincé dans cette boucle, tu n’as qu’
   - Sliders → vitesse / sensibilité
 - **Reset propre** sur défaite : fade noir → reset → fade in (option d’auto-restart).
 - **Position de départ** : `START_POSITION = (-1.9, 2, -2.2)`.
+
+## Elements Administrable
+
+- **GameController** Timer
+- **GameController** Levier activés (pas d'animation déclanchée)
